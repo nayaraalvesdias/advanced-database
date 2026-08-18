@@ -8,6 +8,7 @@ class AdvancedDatabaseApplicationTests {
 
 	@Test
 	fun contextLoads() {
+        println("Hello World")
 	}
 
 }
