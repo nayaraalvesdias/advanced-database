@@ -18,8 +18,10 @@ data class CustomerAddressDBO(
     val street: String,
     val city: String,
     val state: String,
+    val number: String?,
     val zipCode: String,
     val complement: String?,
+    val district: String?,
     val createdAt: LocalDateTime?,
     val updatedAt: LocalDateTime?
 ) {
@@ -29,6 +31,8 @@ data class CustomerAddressDBO(
             id = this.id,
             customer = this.customer.toDomain(),
             street = this.street,
+            number = number,
+            district = district,
             city = this.city,
             state = this.state,
             zipCode = this.zipCode
@@ -43,7 +47,9 @@ fun CustomerAddress.toDBO(): CustomerAddressDBO {
         customer = this.customer!!.toDBO(),
         street = this.street!!,
         city = this.city!!,
+        number = number,
         state = this.state!!,
+        district = district!!,
         zipCode = this.zipCode!!,
         complement = this.complement,
         createdAt = LocalDateTime.now(),

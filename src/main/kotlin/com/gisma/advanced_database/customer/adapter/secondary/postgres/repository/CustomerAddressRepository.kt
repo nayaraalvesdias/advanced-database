@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface CustomerAddressRepository : JpaRepository<CustomerAddressDBO, UUID> {
-    fun findByCustomerId(customerId: UUID): CustomerAddressDBO?
+    fun findByCustomerId(customerId: UUID): List<CustomerAddressDBO>
 }

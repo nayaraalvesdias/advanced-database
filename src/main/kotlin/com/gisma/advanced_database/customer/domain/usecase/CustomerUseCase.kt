@@ -27,7 +27,7 @@ class CustomerUseCase(
 
     override fun deleteById(id: UUID) {
         customerDataAccessPort.findById(id)?.let {
-            customerDataAccessPort.deleteById(id)
+            customerDataAccessPort.save(customer = it.copy(isActive = false))
         } ?: throw NullPointerException("Customer with id $id not found")
     }
 }

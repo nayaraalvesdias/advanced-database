@@ -3,7 +3,6 @@ package com.gisma.advanced_database.customer.adapter.primary.web.controller
 import com.gisma.advanced_database.customer.adapter.primary.web.dto.request.CreateCustomerRequest
 import com.gisma.advanced_database.customer.adapter.primary.web.dto.request.UpdateCustomerRequest
 import com.gisma.advanced_database.customer.adapter.primary.web.dto.response.CreateCustomerResponse
-import com.gisma.advanced_database.customer.adapter.primary.web.dto.response.CustomerResponse
 import com.gisma.advanced_database.customer.adapter.primary.web.dto.response.toCreateCustomerResponse
 import com.gisma.advanced_database.customer.adapter.primary.web.dto.response.toCustomerResponse
 import com.gisma.advanced_database.customer.domain.port.primary.CustomerPort
@@ -43,10 +42,10 @@ class CustomerController(
         customerUpdateData = request.toDomain()
     ).toCreateCustomerResponse()
 
-    @GetMapping("/{id}")
+    @GetMapping("/{customerId}")
     fun getById(
-        @PathVariable id: UUID
-    ): CustomerResponse = customerPort.findById(id)!!.toCustomerResponse()
+        @PathVariable customerId: UUID
+    ) = customerPort.findById(customerId)!!.toCustomerResponse()
 
     @DeleteMapping("/{id}")
     fun deleteById(

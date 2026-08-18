@@ -6,6 +6,6 @@ import java.util.UUID
 interface CustomerAddressDataAccessPort {
     fun save(customerAddress: CustomerAddress): CustomerAddress
     fun findById(id: UUID): CustomerAddress?
-    fun findByCustomerId(customerId: UUID): CustomerAddress?
+    fun findByCustomerId(customerId: UUID): List<CustomerAddress>
     fun deleteById(id: UUID)
 }

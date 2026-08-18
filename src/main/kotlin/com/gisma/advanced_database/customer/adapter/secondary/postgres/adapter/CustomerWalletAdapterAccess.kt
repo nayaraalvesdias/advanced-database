@@ -5,6 +5,7 @@ import com.gisma.advanced_database.customer.adapter.secondary.postgres.repositor
 import com.gisma.advanced_database.customer.domain.model.CustomerCard
 import com.gisma.advanced_database.customer.domain.port.secondary.CustomerWalletDataAccessPort
 import java.util.UUID
+import org.springframework.data.repository.findByIdOrNull
 import org.springframework.stereotype.Component
 
 @Component
@@ -18,6 +19,10 @@ class CustomerWalletAdapterAccess(
 
     override fun deleteById(id: UUID) {
         customerWalletRepository.deleteById(id)
+    }
+
+    override fun findById(id: UUID): CustomerCard? {
+        return customerWalletRepository.findByIdOrNull(id)?.toDomain()
     }
 
     override fun findByCustomerId(customerId: UUID): List<CustomerCard> {

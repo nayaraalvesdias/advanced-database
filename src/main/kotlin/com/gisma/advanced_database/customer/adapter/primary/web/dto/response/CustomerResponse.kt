@@ -1,18 +1,22 @@
 package com.gisma.advanced_database.customer.adapter.primary.web.dto.response
 
-import com.gisma.advanced_database.customer.domain.model.CustomerCard
+import com.gisma.advanced_database.customer.domain.model.Customer
 import java.util.UUID
 
-class CustomerWalletCardResponse(
+data class CustomerResponse(
     val id: UUID,
-    var cardNumber: String
+    val firstName: String?,
+    val lastName: String?,
+    val email: String?,
+    val phone: String?,
+    val isActive: Boolean
 )
 
-fun CustomerCard.toCustomerCardResponse() = CustomerWalletCardResponse(
+fun Customer.toCustomerResponse() = CustomerResponse(
     id = id!!,
-    cardNumber = cardNumber
+    firstName = firstName,
+    lastName = lastName,
+    email = email,
+    phone = phone,
+    isActive = isActive!!
 )
-
-fun List<CustomerCard>.toCustomerResponse() = this.map {
-    it.toCustomerCardResponse()
-}

@@ -23,20 +23,21 @@ class CustomerAddressUseCase(
         customerAddress: CustomerAddress
     ): CustomerAddress {
         return customerAddressDataAccessPort.findById(id)?.let {
-            customerAddressDataAccessPort.save(customerAddress)
+            customerAddressDataAccessPort.save(it.update(customerAddress))
         } ?: throw IllegalArgumentException("Customer Address not found")
     }
 
     override fun findById(id: UUID): CustomerAddress {
-        TODO("Not yet implemented")
+        return customerAddressDataAccessPort.findById(id)
+            ?: throw IllegalArgumentException("Customer Address not found")
     }
 
     override fun findByCustomerId(customerId: UUID): List<CustomerAddress> {
-        TODO("Not yet implemented")
+        return customerAddressDataAccessPort.findByCustomerId(customerId)
     }
 
     override fun deleteById(id: UUID) {
-        TODO("Not yet implemented")
+        return customerAddressDataAccessPort.deleteById(id)
     }
 
 }

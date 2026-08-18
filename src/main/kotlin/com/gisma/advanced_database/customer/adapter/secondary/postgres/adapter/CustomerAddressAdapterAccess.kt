@@ -17,8 +17,8 @@ class CustomerAddressAdapterAccess(
         return customerAddressRepository.save(customerAddress.toDBO()).toDomain()
     }
 
-    override fun findByCustomerId(customerId: UUID): CustomerAddress? {
-        return customerAddressRepository.findByCustomerId(customerId)?.toDomain()
+    override fun findByCustomerId(customerId: UUID): List<CustomerAddress> {
+        return customerAddressRepository.findByCustomerId(customerId).map { it.toDomain() }
     }
 
     override fun findById(id: UUID): CustomerAddress? {

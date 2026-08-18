@@ -19,8 +19,4 @@ class CustomerAdapterAccess(
     override fun findById(id: UUID): Customer? {
         return customerRepository.findByIdOrNull(id)?.toDomain()
     }
-
-    override fun deleteById(id: UUID) {
-        return customerRepository.deleteById(id)
-    }
 }

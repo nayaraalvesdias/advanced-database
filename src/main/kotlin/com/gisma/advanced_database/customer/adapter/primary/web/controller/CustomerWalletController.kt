@@ -2,6 +2,7 @@ package com.gisma.advanced_database.customer.adapter.primary.web.controller
 
 import com.gisma.advanced_database.customer.adapter.primary.web.dto.request.CreateCardRequest
 import com.gisma.advanced_database.customer.adapter.primary.web.dto.response.CustomerWalletCardResponse
+import com.gisma.advanced_database.customer.adapter.primary.web.dto.response.toCustomerCreateCardResponse
 import com.gisma.advanced_database.customer.adapter.primary.web.dto.response.toCustomerResponse
 import com.gisma.advanced_database.customer.domain.port.primary.CustomerWalletPort
 import java.util.UUID
@@ -21,24 +22,25 @@ class CustomerWalletController(
     private val customerWalletPort: CustomerWalletPort
 ) {
 
-    @PostMapping("/{id}/wallet-cards")
+    @PostMapping("/{customerId}/wallet-cards")
     @ResponseStatus(HttpStatus.CREATED)
     fun create(
         @PathVariable customerId: UUID,
         @RequestBody request: CreateCardRequest
-    ) {
-        customerWalletPort.create(
-            customerId, request.toDomain()
-        )
-    }
+    ) = customerWalletPort.create(
+        customerId, request.toDomain()
+    ).toCustomerCreateCardResponse()
 
-    @GetMapping("/wallets/{id}")
+
+
+    @GetMapping("/{customerId}/wallets")
     fun getById(
-        @PathVariable id: UUID
+        @PathVariable customerId: UUID
     ): List<CustomerWalletCardResponse> = customerWalletPort
-        .findByCustomerId(id)
+        .findByCustomerId(customerId)
         .toCustomerResponse()
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @DeleteMapping("/wallets/{id}")
     fun deleteById(
         @PathVariable id: UUID

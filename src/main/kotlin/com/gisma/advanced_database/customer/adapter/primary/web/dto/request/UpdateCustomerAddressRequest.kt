@@ -6,12 +6,18 @@ data class UpdateCustomerAddressRequest(
     val street: String?,
     val city: String?,
     val state: String?,
-    val zipCode: String?
+    val number: String?,
+    val zipCode: String?,
+    val district: String?,
+    val complement: String? = null
 ) {
     fun toDomain(): CustomerAddress = CustomerAddress(
         street = street,
         city = city,
         state = state,
-        zipCode = zipCode
+        zipCode = zipCode,
+        district = district,
+        number = number,
+        complement = complement
     )
 }

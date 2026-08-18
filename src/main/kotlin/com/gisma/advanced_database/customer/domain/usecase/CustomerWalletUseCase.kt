@@ -23,6 +23,8 @@ class CustomerWalletUseCase(
     }
 
     override fun deleteById(id: UUID) {
-        customerWalletDataAccessPort.deleteById(id)
+        return customerWalletDataAccessPort.findById(id)?.let {
+            customerWalletDataAccessPort.deleteById(id)
+        } ?: throw IllegalArgumentException("Customer not found")
     }
 }

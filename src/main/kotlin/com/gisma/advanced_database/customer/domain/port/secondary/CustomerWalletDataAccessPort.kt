@@ -7,4 +7,5 @@ interface CustomerWalletDataAccessPort {
     fun save(customerCard: CustomerCard): CustomerCard
     fun findByCustomerId(customerId: UUID): List<CustomerCard>
     fun deleteById(id: UUID)
+    fun findById(id: UUID): CustomerCard?
 }

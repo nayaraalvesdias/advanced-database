@@ -6,5 +6,4 @@ import java.util.UUID
 interface CustomerDataAccessPort {
     fun save(customer: Customer): Customer
     fun findById(id: UUID): Customer?
-    fun deleteById(id: UUID)
 }
