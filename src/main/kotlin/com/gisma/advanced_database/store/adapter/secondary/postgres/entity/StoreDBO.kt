@@ -1,10 +1,10 @@
 package com.gisma.advanced_database.store.adapter.secondary.postgres.entity
 
-import com.gisma.advanced_database.customer.domain.model.Customer
 import com.gisma.advanced_database.store.domain.model.Store
 import jakarta.persistence.Entity
 import jakarta.persistence.Id
 import jakarta.persistence.Table
+import java.time.LocalDateTime
 import java.util.UUID
 
 @Entity
@@ -12,16 +12,25 @@ import java.util.UUID
 data class StoreDBO(
     @Id
     val id: UUID,
-
-    ) {
+    val name: String,
+    val isActive: Boolean,
+    val createdAt: LocalDateTime,
+    val updatedAt: LocalDateTime
+) {
 
     fun toDomain(): Store {
         return Store(
-            id = this.id
+            id = this.id,
+            name = this.name,
+            isActive = this.isActive
         )
     }
 }
 
-fun Customer.toDBO(): StoreDBO = StoreDBO(
-    id = this.id ?: UUID.randomUUID()
+fun Store.toDBO() = StoreDBO(
+    id = this.id ?: UUID.randomUUID(),
+    name = this.name!!,
+    isActive = this.isActive!!,
+    createdAt = LocalDateTime.now(),
+    updatedAt = LocalDateTime.now()
 )

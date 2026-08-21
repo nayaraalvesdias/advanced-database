@@ -7,4 +7,5 @@ interface StoreDataAccessPort {
     fun save(store: Store): Store
     fun findById(id: UUID): Store?
     fun deleteById(id: UUID)
+    fun findAll(): List<Store>
 }

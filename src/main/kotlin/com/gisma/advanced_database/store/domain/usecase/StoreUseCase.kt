@@ -11,22 +11,30 @@ class StoreUseCase(
     private val storeDataAccessPort: StoreDataAccessPort
 ) : StorePort {
     override fun create(store: Store): Store {
-        TODO("Not yet implemented")
+        return storeDataAccessPort.save(store)
     }
 
     override fun update(
         id: UUID,
-        store: Store
+        storeUpdateData: Store
     ): Store {
-        TODO("Not yet implemented")
+        return storeDataAccessPort.findById(id)?.let {
+            storeDataAccessPort.save(store = it.update(storeUpdateData))
+        } ?: throw IllegalArgumentException("Store with id $id not found")
     }
 
-    override fun findById(id: UUID): Store? {
-        TODO("Not yet implemented")
+    override fun findById(id: UUID): Store {
+        return storeDataAccessPort.findById(id)
+            ?: throw IllegalArgumentException("Store with id $id not found")
+    }
+
+    override fun findAll(): List<Store> {
+        return storeDataAccessPort.findAll()
     }
 
     override fun deleteById(id: UUID) {
-        TODO("Not yet implemented")
+        storeDataAccessPort.findById(id)?.let {
+            storeDataAccessPort.deleteById(id)
+        } ?: throw IllegalArgumentException("Store with id $id not found")
     }
-
 }

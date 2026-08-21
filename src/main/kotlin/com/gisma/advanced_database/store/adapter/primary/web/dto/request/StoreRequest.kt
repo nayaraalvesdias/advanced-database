@@ -2,12 +2,13 @@ package com.gisma.advanced_database.store.adapter.primary.web.dto.request
 
 import com.gisma.advanced_database.store.domain.model.Store
 
-data class CreateStoreRequest(
-    val name: String,
+data class StoreRequest(
+    val name: String? = null,
+    val isActive: Boolean? = null
 ) {
     fun toDomain(): Store = Store(
         name = name,
-        isActive = true
+        isActive = isActive
     )
 }
 

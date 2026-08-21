@@ -5,7 +5,7 @@ import java.util.UUID
 
 interface ProductDataAccessPort {
     fun save(product: Product): Product
-    fun findByCustomerId(storeId: UUID): List<Product>
     fun deleteById(id: UUID)
     fun findById(id: UUID): Product?
+    fun findByStoreId(storeId: UUID): List<Product>
 }
