@@ -1,5 +1,6 @@
 package com.gisma.advanced_database.customer.domain.usecase
 
+import com.gisma.advanced_database.customer.adapter.primary.web.CustomerDomainNotFoundException
 import com.gisma.advanced_database.customer.domain.model.CustomerAddress
 import com.gisma.advanced_database.customer.domain.port.primary.CustomerAddressPort
 import com.gisma.advanced_database.customer.domain.port.secondary.CustomerAddressDataAccessPort
@@ -15,7 +16,7 @@ class CustomerAddressUseCase(
     override fun create(customerId: UUID, customerAddress: CustomerAddress): CustomerAddress {
         return customerDataAccessPort.findById(customerId)?.let {
             customerAddressDataAccessPort.save(customerAddress.copy(customer = it))
-        } ?: throw IllegalArgumentException("Customer not found")
+        } ?: throw CustomerDomainNotFoundException("Customer with id $customerId not found")
     }
 
     override fun update(
@@ -24,12 +25,12 @@ class CustomerAddressUseCase(
     ): CustomerAddress {
         return customerAddressDataAccessPort.findById(id)?.let {
             customerAddressDataAccessPort.save(it.update(customerAddress))
-        } ?: throw IllegalArgumentException("Customer Address not found")
+        } ?: throw CustomerDomainNotFoundException("Customer Address with id $id not found")
     }
 
     override fun findById(id: UUID): CustomerAddress {
         return customerAddressDataAccessPort.findById(id)
-            ?: throw IllegalArgumentException("Customer Address not found")
+            ?: throw CustomerDomainNotFoundException("Customer Address with id $id not found")
     }
 
     override fun findByCustomerId(customerId: UUID): List<CustomerAddress> {

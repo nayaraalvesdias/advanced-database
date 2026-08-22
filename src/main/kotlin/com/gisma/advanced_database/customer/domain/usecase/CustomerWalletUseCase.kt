@@ -1,5 +1,6 @@
 package com.gisma.advanced_database.customer.domain.usecase
 
+import com.gisma.advanced_database.customer.adapter.primary.web.CustomerDomainNotFoundException
 import com.gisma.advanced_database.customer.domain.model.CustomerCard
 import com.gisma.advanced_database.customer.domain.port.primary.CustomerWalletPort
 import com.gisma.advanced_database.customer.domain.port.secondary.CustomerDataAccessPort
@@ -15,7 +16,7 @@ class CustomerWalletUseCase(
     override fun create(customerId: UUID, customerCard: CustomerCard): CustomerCard {
         return customerDataAccessPort.findById(customerId)?.let {
             customerWalletDataAccessPort.save(customerCard.copy(customer = it))
-        } ?: throw IllegalArgumentException("Customer not found")
+        } ?: throw CustomerDomainNotFoundException("Customer with id $customerId not found")
     }
 
     override fun findByCustomerId(customerId: UUID): List<CustomerCard> {
@@ -25,6 +26,6 @@ class CustomerWalletUseCase(
     override fun deleteById(id: UUID) {
         return customerWalletDataAccessPort.findById(id)?.let {
             customerWalletDataAccessPort.deleteById(id)
-        } ?: throw IllegalArgumentException("Customer not found")
+        } ?: throw CustomerDomainNotFoundException("Customer wallet with id $id not found")
     }
 }

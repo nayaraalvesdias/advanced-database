@@ -1,5 +1,6 @@
 package com.gisma.advanced_database.store.domain.usecase
 
+import com.gisma.advanced_database.store.adapter.primary.web.StoreDomainNotFoundException
 import com.gisma.advanced_database.store.domain.model.Product
 import com.gisma.advanced_database.store.domain.port.primary.ProductPort
 import com.gisma.advanced_database.store.domain.port.secondary.ProductDataAccessPort
@@ -18,7 +19,7 @@ class ProductUseCase(
     ): Product {
         return storeDataAccessPort.findById(storeId)?.let {
             productDataAccessPort.save(product.copy(store = it))
-        } ?: throw IllegalArgumentException("Store not found")
+        } ?: throw StoreDomainNotFoundException("Store id $storeId not found")
     }
 
     override fun findByStoreId(storeId: UUID): List<Product> {
@@ -28,17 +29,17 @@ class ProductUseCase(
     override fun deleteById(id: UUID) {
         productDataAccessPort.findById(id)?.let {
             productDataAccessPort.deleteById(id)
-        } ?: throw IllegalArgumentException("Product not found")
+        } ?: throw StoreDomainNotFoundException("Product id $id not found")
     }
 
     override fun findById(id: UUID): Product {
         return productDataAccessPort.findById(id)
-            ?: throw IllegalArgumentException("Product not found")
+            ?: throw StoreDomainNotFoundException("Product id $id not found")
     }
 
     override fun update(id: UUID, productUpdateData: Product): Product {
         return productDataAccessPort.findById(id)?.let {
             productDataAccessPort.save(product = it.update(productUpdateData))
-        } ?: throw IllegalArgumentException("Product not found")
+        } ?: throw StoreDomainNotFoundException("Product id $id not found")
     }
 }

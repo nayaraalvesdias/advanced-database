@@ -31,8 +31,6 @@ class CustomerWalletController(
         customerId, request.toDomain()
     ).toCustomerCreateCardResponse()
 
-
-
     @GetMapping("/{customerId}/wallets")
     fun getById(
         @PathVariable customerId: UUID

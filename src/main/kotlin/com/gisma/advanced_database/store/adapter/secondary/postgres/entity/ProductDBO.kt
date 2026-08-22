@@ -24,7 +24,7 @@ data class ProductDBO(
     val brand: String,
     val description: String,
     val rating: BigDecimal? = null,
-    val createdAt: LocalDateTime?,
+    val createdAt: LocalDateTime? = null,
     val updatedAt: LocalDateTime?
 ) {
 
@@ -54,7 +54,6 @@ fun Product.toDBO(): ProductDBO {
         brand = brand!!,
         description = description!!,
         rating = rating,
-        createdAt = LocalDateTime.now(),
         updatedAt = LocalDateTime.now()
     )
 }

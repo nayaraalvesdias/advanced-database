@@ -14,7 +14,7 @@ data class StoreDBO(
     val id: UUID,
     val name: String,
     val isActive: Boolean,
-    val createdAt: LocalDateTime,
+    val createdAt: LocalDateTime? = null,
     val updatedAt: LocalDateTime
 ) {
 
@@ -31,6 +31,5 @@ fun Store.toDBO() = StoreDBO(
     id = this.id ?: UUID.randomUUID(),
     name = this.name!!,
     isActive = this.isActive!!,
-    createdAt = LocalDateTime.now(),
     updatedAt = LocalDateTime.now()
 )
